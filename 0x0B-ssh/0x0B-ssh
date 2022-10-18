@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
-
-ssh ubuntu@104.196.50.234 -i ~/.ssh/school
-mkdir -p ~/.ssh && touch ~/.ssh/authorized_keys
-chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
-echo ssh-rsa ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface]                                                                  
+ ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface]                                                                  
            [-b bind_address] [-c cipher_spec] [-D [bind_address:]port]                                                     
            [-E log_file] [-e escape_char] [-F configfile] [-I pkcs11]                                                      
            [-i identity_file] [-J [user@]host[:port]] [-L address]                                                         
