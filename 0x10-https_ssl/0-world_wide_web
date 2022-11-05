@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC2086
-# display information about subdomains
+# check ip linked to domain
 
-display_info ()
-{
-    domain="$1"
-    subdomain="$2"
-    dig "$subdomain.$domain" | awk '/ANSWER SECTION:/{getline; printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}' var="$subdomain"
+subs=("www" "lb-01" "web-01" "web-02")
+
+get_ip(){
+	dom=$(echo $1 | cut -d '.' -f 1)
+	data=$(dig $1 | grep -A1 'ANSWER SECTION:' | tail -1 | awk -v sd="$dom" '{print "The subdomain "sd" is a "$4" record and points to "$5}')
+	echo $data
 }
-
-for subdomain in "www" "lb-01" "web-01" "web-02"
-do
-    if [ -z "$2" ] || [ "$2" == "$subdomain" ] ;
-    then
-	display_info "$1" "$subdomain"
-    fi
-done
+if [ $# -eq 1 ];then
+	for i in ${subs[@]};
+	do
+		get_ip "$i.$1"
+	done
+elif [ $# -eq 2 ];then
+	get_ip "$2.$1"
+fi
